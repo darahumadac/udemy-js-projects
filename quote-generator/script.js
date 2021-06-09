@@ -7,19 +7,19 @@ const loader = document.getElementById('loader');
 
 let apiQuotes = [];
 
-function loading() {
+function showLoadingSpinner() {
   loader.hidden = false;
   quoteContainer.hidden = true;
 }
 
-function complete() {
+function removeLoadingSpinner() {
   quoteContainer.hidden = false;
   loader.hidden = true;
 }
 
 // Show new quote
 function newQuote() {
-  loading();
+  showLoadingSpinner();
   const quote = apiQuotes[Math.floor(Math.random() * apiQuotes.length)];
 
   authorText.textContent = quote.author;
@@ -32,12 +32,12 @@ function newQuote() {
     quoteText.classList.remove('long-quote');
   }
   quoteText.textContent = quote.text;
-  complete();
+  removeLoadingSpinner();
 }
 
 // Get quotes from api
 async function getQuotes() {
-  loading();
+  showLoadingSpinner();
   const apiUrl = 'https://type.fit/api/quotes';
   try {
     const response = await fetch(apiUrl);
@@ -60,4 +60,4 @@ twitterBtn.addEventListener('click', tweetQuote);
 
 // On load
 getQuotes();
-// loading();
+// showLoadingSpinner();
